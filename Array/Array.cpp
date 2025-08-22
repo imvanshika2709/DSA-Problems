@@ -119,12 +119,33 @@ int TrappingRainWater(vector<int>& arr){
     }
     return total;
 }
+int findduplicates_brute(vector<int>&arr){
+    // {1,3,4,2,2} --> 1,2,2,3,4
+    // O(n logn +n)
+    int n=arr.size();
+    sort(arr.begin(), arr.end());
 
+    for(int i=1; i<n; i++){
+        if(arr[i]==arr[i-1]) return arr[i];
+
+    }
+    return 0;
+
+}
+int findduplicates_optimal(vector<int>& arr){
+    int n=arr.size();
+    int freq[n-1]={0};
+
+    for(int i=0; i<n; i++){
+        if(freq[arr[i]]==0) freq[arr[i]]+=1;
+        else return arr[i];
+    }
+    return 0;
+
+}
 int main() {
-    vector<int> temp={2,6,5,8,11};
-    int target=14;
-    bool ans=TwoSum_optimal(temp,target);
-
+    vector<int> temp={4,3,4,1,2};
+    int ans=findduplicates_optimal(temp);
     cout<<ans;
     
     return 0;
