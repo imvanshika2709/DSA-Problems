@@ -52,10 +52,57 @@ int LongestSubstringwithoutRepeating_optimal(string &str){
     }
     return maxlen;
 }
+bool checkpalin(int low, int high, string &str){
+    while(low<high){
+        if(str[low]!=str[high]) return false;
+        low++;
+        high--;
+    }
+    return true;
+}
+string longestpalinsubstr_brute(string& str){
+    int n=str.length(); int maxlen=1;
+    int start=0;
+    for(int i=0; i<n; i++){
+        for(int j=i; j<n; j++){
+            if(checkpalin(i,j,str)==true){
+                if(j-i+1>maxlen){
+                    start=i;
+                    maxlen=j-i+1;
+                }
+            }
+        }
+    }
+    return str.substr(start, maxlen);
+}
+int expandaroundcentre(string &str, int left, int right){
+    int n=str.length();
 
+    while(left>=0 && right<n && str[left]==str[right]){
+        left--;
+        right++;
+    }
+    return right-left-1;
+}
+string longestpalinsubstr_better(string& str){
+    int n=str.length();
+    int len1=0; int len2=0; int len=0; 
+    int start=0; int end=0;
+    for(int i=0; i<n; i++){
+        len1=expandaroundcentre(str, i, i);
+        len2=expandaroundcentre(str, i, i+1);
+        len=max(len1, len2);
+
+        if(len>(end-start+1)){
+            start=i-(len-1)/2;
+            end= i+len/2;
+        }
+    }
+    return str.substr(start,end-start+1); 
+}
 int main() {
-    string str1="cadbzabcd";
-    int ans=LongestSubstringwithoutRepeating_optimal(str1);
+    string str1="abccbazxc";
+    string ans=longestpalinsubstr_better(str1);
     cout<<ans;
     
     return 0;
