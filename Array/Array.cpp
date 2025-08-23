@@ -141,11 +141,37 @@ int findduplicates_optimal(vector<int>& arr){
         else return arr[i];
     }
     return 0;
+}
+// Best Time to Buy and Sell Stock
+
+int BuyAndSellStock_brute(vector<int>& arr){
+    // [7,1,5,3,6,4]
+    int n=arr.size();
+    int maxpro=0;
+
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<n; j++){
+            int pro=arr[j]-arr[i];
+            maxpro=max(pro, maxpro);
+        }
+    }
+    return maxpro;
 
 }
+int BuyAndSellStock_optimal(vector<int>& arr){
+    int maxpro=0;
+    int n=arr.size();
+    for(int i=0; i<n; i++){
+        int buy=min(buy, arr[i]);
+        int pro=arr[i]-buy;
+        maxpro=max(maxpro, pro);
+
+    }
+    return maxpro;
+}
 int main() {
-    vector<int> temp={4,3,4,1,2};
-    int ans=findduplicates_optimal(temp);
+    vector<int> temp={1,2,3,5,2,6};
+    int ans=BuyAndSellStock_optimal(temp);
     cout<<ans;
     
     return 0;
