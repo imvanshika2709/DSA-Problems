@@ -169,10 +169,101 @@ int BuyAndSellStock_optimal(vector<int>& arr){
     }
     return maxpro;
 }
+ // Search in Rotated Sorted Array
+
+ int SearchinRotatedArr(vector<int>& arr, int k){
+    int n=arr.size();
+    int low=0; int high=n-1;
+
+    while(low<=high){
+        int mid=(low+high)/2;
+
+        if(arr[mid]==k) return mid;
+        if(arr[low]<=arr[mid]){
+            if(arr[low]<=k && arr[mid]>=k){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        else{
+            if(arr[mid]<=k && arr[high]>=k){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+    }
+    return -1;
+ }
+ vector<vector<int>> SetMatrixZeros_better(vector<vector<int>> &arr, int n, int m){
+    int row[n]={0};
+    int col[m]={0};
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(arr[i][j]==0){
+                row[i]=1;
+                col[j]=1;
+            }
+        }
+    }
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(row[i]==1 || col[j]==1) arr[i][j]=0;
+        }
+    }
+    return arr;
+ }
+ vector<vector<int>> SetMatrixZeros_optimal(vector<vector<int>>& arr, int n, int m){
+    int col0=1;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(arr[i][j]==0){
+                arr[i][0]=0;
+                if(j!=0){
+                    arr[0][j]=0;
+                }
+                else col0=0;
+            }
+        }
+    }
+
+    for(int i=1; i<n; i++){
+        for(int j=1; j<m; j++){
+            if(arr[i][j]!=0){
+                if(arr[i][0]==0 || arr[0][j]==0) arr[i][j]=0;
+            }
+        }
+    }
+
+    if(arr[0][0]==0){
+        for(int j=0; j<m; j++){
+            arr[0][j]=0;
+        }
+    }
+    if(col0==0){
+        for(int i=0; i<n; i++){
+            arr[i][0]=0;
+        }
+    }
+    return arr;
+}
 int main() {
-    vector<int> temp={1,2,3,5,2,6};
-    int ans=BuyAndSellStock_optimal(temp);
-    cout<<ans;
+    vector<vector<int>> temp={{1, 1, 0}, 
+                            {1, 0, 1}, 
+                            {1, 1, 1}};
+
+    vector<vector<int>> ans=SetMatrixZeros_optimal(temp,3,3);
+    for(auto it: ans){
+        for(auto ele: it){
+            cout<<ele;
+        }
+        cout<<endl;
+    }
     
     return 0;
 }
