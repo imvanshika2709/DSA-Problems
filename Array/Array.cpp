@@ -274,10 +274,29 @@ int LongestConsecSeq(vector<int>& arr){
     }
     return maxlen;
 }
+vector<int> NextGreaterElement(vector<int>& arr){
+    int n=arr.size();
+    vector<int>nge(n,0);
+    stack<int> st;
+
+    for(int i=n-1; i>=0; i--){
+        while(!st.empty() && st.top()<=arr[i]){
+            st.pop();
+        }
+        if(st.empty()) nge[i]=-1;
+        else nge[i]=st.top();
+        
+        st.push(arr[i]);
+    }
+    return nge;
+}
 int main() {
     vector<int> temp={100,1,103,101,3,102,9,6};
     int ans=LongestConsecSeq(temp);
-    cout<<ans;
+    cout<<ans; 
+    // {1, 2, 3, 4, 5, 6, 7}; 5432167 --> 5432176 --> 6712345
+    //int n = 7;
+  // int k = 2;
     
     return 0;
 }
