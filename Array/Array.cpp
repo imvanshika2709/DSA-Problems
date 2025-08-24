@@ -252,18 +252,32 @@ int BuyAndSellStock_optimal(vector<int>& arr){
     }
     return arr;
 }
-int main() {
-    vector<vector<int>> temp={{1, 1, 0}, 
-                            {1, 0, 1}, 
-                            {1, 1, 1}};
+int LongestConsecSeq(vector<int>& arr){
+    set<int> st;
+    int n=arr.size(); int maxlen=1;
 
-    vector<vector<int>> ans=SetMatrixZeros_optimal(temp,3,3);
-    for(auto it: ans){
-        for(auto ele: it){
-            cout<<ele;
-        }
-        cout<<endl;
+    for(int i=0; i<n; i++){
+        st.insert(arr[i]);
     }
+
+    for(auto it: st){
+        if(st.find(it-1)==st.end()){
+            int x=it;
+            int count=1;
+
+            while(st.find(x+1)!=st.end()){
+                count++;
+                x=x+1;
+            }
+            maxlen=max(count, maxlen);
+        }
+    }
+    return maxlen;
+}
+int main() {
+    vector<int> temp={100,1,103,101,3,102,9,6};
+    int ans=LongestConsecSeq(temp);
+    cout<<ans;
     
     return 0;
 }
