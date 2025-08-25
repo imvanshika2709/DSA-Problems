@@ -75,21 +75,56 @@ Node* AddTwoLL(Node* list1, Node* list2){
     }
     return dummy->next;
 }
+bool DetectCycle_brute(Node* head){
+    unordered_map<Node*,int> mpp;
 
-int main() {
-    Node*head1= new Node(1);
-    head1->next=new Node(9);
-    head1->next->next=new Node(9);
+    Node* temp=head;
 
-    Node* head2= new Node(2);
-    head2->next= new Node(3);
-
-    Node * ans=AddTwoLL(head1, head2);
-    Node* temp=ans;
-    while(temp!=nullptr){
-        cout<<temp->data;
+    while(temp!=NULL){
+        if(mpp.find(temp)!=mpp.end()) return true;
+        mpp[temp]++;
         temp=temp->next;
     }
+    return false;
+}
+bool DetectCycle_optimal(Node* head){
+
+    Node* slow=head;
+    Node* fast=head;
+
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+
+        if(slow==fast) return true;
+
+    }
+    return false;
+}
+Node* MiddleOfLL(Node* head){
+    Node* slow=head;
+    Node* fast=head;
+
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+}
+
+int main() {
+    Node* head1=new Node(1);
+    Node* first= new Node(2);
+    Node* second= new Node(3);
+    Node* third= new Node(4);
+
+
+    head1->next=first;
+    first->next=second;
+    second->next=third;
+
+    Node* ans=MiddleOfLL(head1);
+    cout<<ans->data;
     
     return 0;
 }
