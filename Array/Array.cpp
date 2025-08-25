@@ -290,13 +290,92 @@ vector<int> NextGreaterElement(vector<int>& arr){
     }
     return nge;
 }
+int SubarraysWithSumK_brute(vector<int>&arr, int k){
+    int n=arr.size();
+    int count=0;
+
+    for(int i=0; i<n; i++){
+        int sum=0;
+        for(int j=i; j<n; j++){
+            sum+=arr[j];
+            if(sum==k){
+                count++;
+            }
+
+        }
+    }
+    return count;
+}
+int SubarraysWithSumK_optimal(vector<int>& arr, int k){
+    int count=0;
+    unordered_map<int,int> mpp;
+    int n=arr.size();
+    int sum=0;
+
+    for(int i=0; i<n; i++){
+        sum+=arr[i];
+
+        if(sum==k) count++;
+        int rem=sum-k;
+
+        if(mpp.find(rem)!=mpp.end()) count+=mpp[rem];
+        mpp[sum]++;
+    }
+    return count;
+
+    // 1,2,3,4
+}
+// kadane's algo
+
+int MaximumSubarray(vector<int>& arr){
+    int sum=0;
+    int n=arr.size();
+    int maxi=0;
+
+    for(int i=0; i<n; i++){
+        sum+=arr[i];
+
+        if(sum<0) sum=0;
+
+        else maxi=max(sum,maxi);
+
+        // [-2,1,-3,4,-1,2,1,-5,4]
+    }
+    return maxi;
+}
+vector<int> MaximumSubarray_array(vector<int>& arr){
+    int sum=0;
+    int n=arr.size();
+    int maxi=0; int start=0; int end=0; int tempstart=0;
+
+    for(int i=0; i<n; i++){
+        sum+=arr[i];
+
+        if(sum>maxi){
+            start=tempstart;
+            end=i;
+            maxi=sum;
+        }
+        if(sum<0){
+            tempstart=i+1;
+            sum=0;
+        }
+
+        // [-2,1,-3,4,-1,2,1,-5,4]
+    }
+    vector<int> temp;
+    for(int i=start; i<=end; i++){
+        temp.push_back(arr[i]);
+    }
+    return temp;
+}
 int main() {
-    vector<int> temp={100,1,103,101,3,102,9,6};
-    int ans=LongestConsecSeq(temp);
-    cout<<ans; 
-    // {1, 2, 3, 4, 5, 6, 7}; 5432167 --> 5432176 --> 6712345
-    //int n = 7;
-  // int k = 2;
-    
+    vector<int> temp={-2,1,-3,4,-1,2,1,-5,4};
+
+    vector<int> ans=MaximumSubarray_array(temp);
+    for(auto it: ans){
+        cout<<it;
+    }
+
     return 0;
 }
