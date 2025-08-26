@@ -369,13 +369,45 @@ vector<int> MaximumSubarray_array(vector<int>& arr){
     }
     return temp;
 }
-int main() {
-    vector<int> temp={-2,1,-3,4,-1,2,1,-5,4};
+vector<vector<int>> MergeIntervals(vector<vector<int>>& arr){
+    // [[1,3],[2,6],[8,10],[15,18]]
+    vector<vector<int>> ans;
+    sort(arr.begin(), arr.end());
+    int n=arr.size();
 
-    vector<int> ans=MaximumSubarray_array(temp);
-    for(auto it: ans){
-        cout<<it;
+    for(int i=0; i<n; i++){
+        if(ans.empty() || ans.back()[1]<arr[i][0]){
+            ans.push_back(arr[i]);
+        }
+        else ans.back()[1]=max(ans.back()[1], arr[i][1]);
     }
+    return ans;
+}
+bool SubarrayWithGivenSum_brute(vector<int>& arr, int k){
+    int n=arr.size();
+
+    for(int i=0; i<n; i++){
+        int sum=0;
+        for(int j=i; j<n; j++){
+            sum+=arr[j];
+            if(sum==k) return true;
+        }
+    }
+    return false;
+}
+vector<int> SubarrayWithGivenSum_optimal(vector<int>& arr, int k){
+    int n=arr.size();
+    int l=0; int r=n-1;
+
+
+
+}
+int main() {
+    vector<int> temp={15, 2, 4, 8, 9, 5, 10, 23};
+    // 1,5 2,4 4,6 7,8
+    int k=2;
+   vector<int> ans=SubarrayWithGivenSum_optimal(temp, k);
+   cout<<ans;
 
     return 0;
 }
