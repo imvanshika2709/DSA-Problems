@@ -397,17 +397,27 @@ bool SubarrayWithGivenSum_brute(vector<int>& arr, int k){
 }
 vector<int> SubarrayWithGivenSum_optimal(vector<int>& arr, int k){
     int n=arr.size();
-    int l=0; int r=n-1;
+    int l=0;
+    int sum=0; 
 
-
-
+    for(int r=0; r<n; r++){
+        sum+=arr[r];
+        while(sum>k && l<=r){
+            sum-=arr[l];
+            l++;
+        }
+        if(sum==k){
+            return {l,r};
+        }
+    }
+    return {-1,-1};
 }
 int main() {
     vector<int> temp={15, 2, 4, 8, 9, 5, 10, 23};
     // 1,5 2,4 4,6 7,8
-    int k=2;
+    int k=23;
    vector<int> ans=SubarrayWithGivenSum_optimal(temp, k);
-   cout<<ans;
+   cout<<ans[0]<<ans[1];
 
     return 0;
 }
