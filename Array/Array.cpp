@@ -412,12 +412,28 @@ vector<int> SubarrayWithGivenSum_optimal(vector<int>& arr, int k){
     }
     return {-1,-1};
 }
+int MaximumProductSubarray(vector<int>& arr){
+    int pre=1;
+    int suff=1;
+    int n=arr.size();
+    int maxi=1; 
+
+    for(int i=0; i<n; i++){
+        pre*=arr[i];
+        suff*=arr[n-i-1];
+
+        if(pre==0) pre=1;
+        if(suff==1) suff=1;
+
+        maxi=max(maxi, max(pre, suff));
+    }
+    return maxi;
+}
 int main() {
-    vector<int> temp={15, 2, 4, 8, 9, 5, 10, 23};
+    vector<int> temp={1,2,3,4,5,0};
     // 1,5 2,4 4,6 7,8
-    int k=23;
-   vector<int> ans=SubarrayWithGivenSum_optimal(temp, k);
-   cout<<ans[0]<<ans[1];
+    int ans=MaximumProductSubarray(temp);
+    cout<<ans;
 
     return 0;
 }
