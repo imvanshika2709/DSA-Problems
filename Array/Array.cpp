@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 /*
-Two Sum II – Input array is sorted
-3Sum
+--Two Sum II – Input array is sorted
+--3Sum
 3Sum Closest
-4Sum
-Subarray Sum Equals K
-Maximum Subarray (Kadane’s Algorithm)
-Maximum Product Subarray
-Find Minimum in Rotated Sorted Array
-Search in Rotated Sorted Array
+--4Sum
+--Subarray Sum Equals K
+--Maximum Subarray (Kadane’s Algorithm)
+--Maximum Product Subarray
+--Find Minimum in Rotated Sorted Array
+--Search in Rotated Sorted Array
 Search in Rotated Sorted Array II (with duplicates)
 Peak Element in Array
 Find First and Last Position in Sorted Array
@@ -23,7 +23,7 @@ Spiral Matrix
 Spiral Matrix II
 Jump Game
 Jump Game II (min jumps)
-Merge Intervals
+--Merge Intervals
 Insert Interval
 Interval List Intersections
 Non-overlapping Intervals
@@ -32,7 +32,7 @@ Subsets
 Subsets II (with duplicates)
 Permutations
 Permutations II (with duplicates)
-Combination Sum
+--Combination Sum
 Combination Sum II
 Combination Sum III
 Next Permutation
@@ -47,7 +47,7 @@ Container With Most Water
 Largest Rectangle in Histogram
 Maximal Rectangle (2D DP on histogram)
 Sort Colors (Dutch National Flag)
-Kth Largest Element in Array (Quickselect/Heap)
+--Kth Largest Element in Array (Quickselect/Heap)
 Find Median of Two Sorted Arrays
 Sliding Window Maximum
 Minimum Size Subarray Sum
@@ -183,6 +183,47 @@ vector<vector<int>> ThreeSum_optimal(vector<int>& arr){
     vector<vector<int>> ans(st.begin(), st.end());
     return ans;
 }
+vector<vector<int>> FourSum(vector<int>& arr){
+    int n=arr.size();
+    set<vector<int>> st;
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<n; j++){
+            int k=j+1; int l=n-1;
+
+            while(k<l){
+                int sum=arr[i]+arr[j]+arr[k]+arr[l];
+
+                if(sum==0){
+                    st.insert({arr[i], arr[j], arr[k], arr[l]});
+                    k++;
+                    l--;
+                }
+
+                else if(sum<0){
+                    k++;
+                }
+                else l--;
+            }
+        }
+    }
+    vector<vector<int>> ans(st.begin(), st.end());
+    return ans;
+}
+
+int SubarraySumEqualsK(vector<int>& arr, int k){
+    int count=0; int sum=0; int n=arr.size();
+    unordered_map<int,int> mpp;
+
+    for(int i=0; i<n; i++){
+        sum+=arr[i];
+        if(sum==k) count++;
+        int rem=sum-k;
+        if(mpp.find(rem)!=mpp.end()) count+=mpp[rem];
+        mpp[sum]++;
+    }
+    return count;
+}
+
 int TrappingRainWater(vector<int>& arr){
     int n=arr.size();
     int lmax=0, rmax=0, l=0, r=n-1;;
@@ -256,7 +297,20 @@ int BuyAndSellStock_optimal(vector<int>& arr){
     return maxpro;
 }
  // Search in Rotated Sorted Array
+int MinimuminRotatedSortedArray(vector<int>&arr){
+    int n=arr.size();
+    int low=0; int high=n-1;
 
+    while(low<high){
+        if(arr[low]<arr[high]) return arr[low];
+
+        int mid=(low+high)/2;
+
+        if(arr[mid]>arr[high]) low=mid+1;
+        else high=mid;
+    }
+    return arr[low];
+}
  int SearchinRotatedArr(vector<int>& arr, int k){
     int n=arr.size();
     int low=0; int high=n-1;
@@ -338,6 +392,32 @@ int BuyAndSellStock_optimal(vector<int>& arr){
     }
     return arr;
 }
+
+vector<vector<int>> MergeIntervals1(vector<vector<int>>& arr){
+    //[[1,3],[2,6],[8,10],[15,18]]
+    int n=arr.size(); vector<vector<int>> ans;
+    int m=arr[0].size();
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<m; j++){
+            if(!ans.empty() && ans.back()[1]> arr[j][0]){
+                ans.back()[1]=max(ans.back()[1], arr[j][1]);
+            }
+            else ans.push_back(arr[i]);
+
+        }
+    }
+    return ans;
+}
+vector<vector<int>> MergeIntervals_optimal(vector<vector<int>>& arr){
+    //[[1,3],[2,6],[8,10],[15,18]]
+    int n=arr.size(); vector<vector<int>> ans;
+    for(int i=0; i<n; i++){
+        if(ans.empty() || ans.back()[1]<arr[i][0]) ans.push_back(arr[i]);
+        else ans.back()[1]=max(ans.back()[1], arr[i][1]);
+    }
+    return ans;
+}
+
 int LongestConsecSeq(vector<int>& arr){
     set<int> st;
     int n=arr.size(); int maxlen=1;
@@ -516,10 +596,9 @@ int MaximumProductSubarray(vector<int>& arr){
     return maxi;
 }
 int main() {
-    vector<int> temp={-2,-1,0,2,3};
-    // 1,5 2,4 4,6 7,8
-    int k=2;
-    vector<vector<int>> ans=ThreeSum(temp);
+    vector<vector<int>> temp={{1,2},{2,4},{5,10},{8,18}};
+    vector<vector<int>> ans=MergeIntervals_optimal(temp);
+
     for(auto it: ans){
         for(auto ele: it){
             cout<<ele;
