@@ -1,6 +1,92 @@
 #include <bits/stdc++.h>
 using namespace std;
+/*
+Two Sum II – Input array is sorted
+3Sum
+3Sum Closest
+4Sum
+Subarray Sum Equals K
+Maximum Subarray (Kadane’s Algorithm)
+Maximum Product Subarray
+Find Minimum in Rotated Sorted Array
+Search in Rotated Sorted Array
+Search in Rotated Sorted Array II (with duplicates)
+Peak Element in Array
+Find First and Last Position in Sorted Array
+Missing Number
+Find the Duplicate Number
+Find All Duplicates in an Array
+Find Disappeared Numbers
+Set Matrix Zeroes
+Rotate Image (Matrix)
+Spiral Matrix
+Spiral Matrix II
+Jump Game
+Jump Game II (min jumps)
+Merge Intervals
+Insert Interval
+Interval List Intersections
+Non-overlapping Intervals
+Minimum Number of Arrows to Burst Balloons
+Subsets
+Subsets II (with duplicates)
+Permutations
+Permutations II (with duplicates)
+Combination Sum
+Combination Sum II
+Combination Sum III
+Next Permutation
+Previous Permutation with One Swap
+Longest Consecutive Sequence
+Product of Array Except Self
+Majority Element II (appears > n/3 times)
+Gas Station (circular array)
+Candy Distribution
+Trapping Rain Water
+Container With Most Water
+Largest Rectangle in Histogram
+Maximal Rectangle (2D DP on histogram)
+Sort Colors (Dutch National Flag)
+Kth Largest Element in Array (Quickselect/Heap)
+Find Median of Two Sorted Arrays
+Sliding Window Maximum
+Minimum Size Subarray Sum
+*/
 
+vector<int> TwoSumII(vector<int>& arr, int target){
+    int start=0; int n=arr.size();
+    int end=n-1;
+
+    while(start<end){
+        int sum=arr[start]+arr[end];
+
+        if(sum==target) return {start,end};
+        else if(sum<target) start++;
+        else end--;
+    }
+    return {-1,-1};
+}
+vector<vector<int>> ThreeSum(vector<int>& arr){
+    int i=0; int n=arr.size();
+    set<vector<int>> st;
+
+    for(int i=0; i<n; i++){
+        int j=i+1; int k=n-1;
+
+        while(j<k){
+            int sum=arr[i]+arr[j]+arr[k];
+
+            if(sum==0){
+                st.insert({arr[i], arr[j], arr[k]});
+                j++; k--;
+            }
+            else if(sum>k) j++;
+            else k--;
+        }
+    }
+    vector<vector<int>> ans(st.begin(), st.end());
+    return ans;
+}
 bool TwoSum_brute(vector<int>& arr, int target){
     // {2,6,5,8,11}
     int n=arr.size();
@@ -430,10 +516,15 @@ int MaximumProductSubarray(vector<int>& arr){
     return maxi;
 }
 int main() {
-    vector<int> temp={1,2,3,4,5,0};
+    vector<int> temp={-2,-1,0,2,3};
     // 1,5 2,4 4,6 7,8
-    int ans=MaximumProductSubarray(temp);
-    cout<<ans;
-
+    int k=2;
+    vector<vector<int>> ans=ThreeSum(temp);
+    for(auto it: ans){
+        for(auto ele: it){
+            cout<<ele;
+        }
+        cout<<endl;
+    }
     return 0;
 }
