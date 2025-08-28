@@ -46,7 +46,7 @@ Trapping Rain Water
 Container With Most Water
 Largest Rectangle in Histogram
 Maximal Rectangle (2D DP on histogram)
-Sort Colors (Dutch National Flag)
+--Sort Colors (Dutch National Flag)
 --Kth Largest Element in Array (Quickselect/Heap)
 Find Median of Two Sorted Arrays
 Sliding Window Maximum
@@ -594,6 +594,20 @@ int MaximumProductSubarray(vector<int>& arr){
         maxi=max(maxi, max(pre, suff));
     }
     return maxi;
+}
+void sort012(vector<int>& arr){
+    // 0000000 ,0,2,1,0,1,2,1,2,0,0 222222
+    // dutch national flag
+
+    int low=0; int mid=0;
+    int n=arr.size();
+    int high=n-1;
+
+    while(mid<=high){
+        if()
+        
+
+    }
 }
 int main() {
     vector<vector<int>> temp={{1,2},{2,4},{5,10},{8,18}};

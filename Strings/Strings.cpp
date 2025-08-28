@@ -100,9 +100,30 @@ string longestpalinsubstr_better(string& str){
     }
     return str.substr(start,end-start+1); 
 }
+int LongestRepeatingCharacterReplacement(string &str, int k){
+    int n=str.length();
+    int maxf=1;
+    int changes=0; int maxlen=1;
+
+
+    for(int i=0; i<n; i++){
+        int hash[26]={0};
+        for(int j=i; j<n; j++){
+            hash[str[j]-'A']++;
+        
+            maxf=max(maxf, hash[str[i]-'A']);
+            changes=(j-i+1)- maxf;
+
+            if(changes<=k) maxlen=max(maxlen, j-i+1);
+            else break;
+        }
+    }
+    return maxlen;
+}
 int main() {
-    string str1="abccbazxc";
-    string ans=longestpalinsubstr_better(str1);
+    string str1="ADBD";
+    int k=1;
+    int  ans=LongestRepeatingCharacterReplacement(str1, k);
     cout<<ans;
     
     return 0;
