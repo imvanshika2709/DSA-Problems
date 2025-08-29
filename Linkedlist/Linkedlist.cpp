@@ -111,20 +111,48 @@ Node* MiddleOfLL(Node* head){
     }
     return slow;
 }
+int LengthOfLoop(Node* slow, Node* fast){
+    int count=1;
+    fast=fast->next;
+
+    while(slow!=fast){
+        fast=fast->next;
+        count++;
+    }
+    return count;
+}
+
+int FindLength(Node* head){
+    Node* slow=head;
+    Node* fast=head;
+
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+
+        if(slow==fast){
+            return LengthOfLoop(slow, fast);
+        }
+    }
+    return 0;
+}
 
 int main() {
     Node* head1=new Node(1);
     Node* first= new Node(2);
     Node* second= new Node(3);
     Node* third= new Node(4);
+    Node* fourth= new Node(5);
 
 
     head1->next=first;
     first->next=second;
     second->next=third;
+    third->next=fourth;
+    fourth->next=second;
 
-    Node* ans=MiddleOfLL(head1);
-    cout<<ans->data;
+    int ans=FindLength(head1);
+    cout<<ans;
     
     return 0;
 }
