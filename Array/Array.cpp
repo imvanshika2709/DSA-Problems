@@ -604,7 +604,16 @@ void sort012(vector<int>& arr){
     int high=n-1;
 
     while(mid<=high){
-        if()
+        if(arr[mid]==0){
+            swap(arr[low], arr[mid]);
+            low++;
+            mid++;
+        }
+        else if(arr[mid]==1) low++;
+        else{
+            swap(arr[mid], arr[high]);
+            high--;
+        }
         
 
     }
