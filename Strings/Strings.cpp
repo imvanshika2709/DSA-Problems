@@ -120,10 +120,26 @@ int LongestRepeatingCharacterReplacement(string &str, int k){
     }
     return maxlen;
 }
+int SubstringWithAllThreeCharac(string& str){
+    int pos[3]={-1,-1,-1};
+    int ans=0;
+    int lastseen=-1;
+
+
+    for(int i=0; i<str.length(); i++){
+        pos[str[i]-'a']=i;
+
+        if (pos[0] != -1 && pos[1] != -1 && pos[2] != -1) {
+            lastseen=min(pos[0], pos[1]);
+            lastseen=min(lastseen, pos[2]);
+            ans+=lastseen+1;
+        }
+    }
+    return ans;
+}
 int main() {
-    string str1="ADBD";
-    int k=1;
-    int  ans=LongestRepeatingCharacterReplacement(str1, k);
+    string str1="abcabc";
+    int ans=SubstringWithAllThreeCharac(str1);
     cout<<ans;
     
     return 0;
