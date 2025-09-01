@@ -25,10 +25,38 @@ int LongestSubarrayWithZeroSum(vector<int>& arr){
     }
     return maxlen;
 }
+// substring with all unique characters
+int SubstringWithAllUniqueCharac(string& str, int k){
+    vector<int> pos(26, -1);  
+
+    int ans = 0;
+
+    for (int i = 0; i < str.length(); i++) {
+        pos[str[i] - 'a'] = i;  // update last seen index of this char
+
+        // check if we have seen all k required chars
+        int lastseen = INT_MAX;
+        int count = 0;
+
+        for (int j = 0; j < 26; j++) {
+            if (pos[j] != -1) {
+                count++;
+                if (count <= k)   // only care about k chars
+                    lastseen = min(lastseen, pos[j]);
+            }
+        }
+
+        if (count >= k) {
+            ans += (lastseen + 1);
+        }
+    }
+    return ans;
+}
 
 int main() {
-    vector<int> temp={1, 2, 3, 4, 5, 0, 0, -1, 1};
-    int ans=LongestSubarrayWithZeroSum(temp);
+    string str1="mississippi";
+    int k=4;
+    int ans=SubstringWithAllUniqueCharac(str1, k);
     cout<<ans;
     
     return 0;
