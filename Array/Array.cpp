@@ -618,6 +618,7 @@ void sort012(vector<int>& arr){
 
     }
 }
+// quick sort
 int main() {
     vector<vector<int>> temp={{1,2},{2,4},{5,10},{8,18}};
     vector<vector<int>> ans=MergeIntervals_optimal(temp);
