@@ -11,19 +11,15 @@ struct Node {
     }
 };
 
-void helper(Node* root, vector<int>& ans){
 
+
+void Inorder(Node* root){
     if(root==NULL) return;
-    helper(root->left,ans);
-    ans.push_back(root->val);
-    helper(root->right,ans);
-}
 
-vector<int> Inorder(Node* root){
-    vector<int> ans;
+    Inorder(root->left);
+    cout<<root->val<<endl;
+    Inorder(root->right);
 
-    helper(root, ans);
-    return ans;
 } 
 
 bool IsIdentical(Node* root1, Node* root2){
@@ -34,17 +30,41 @@ bool IsIdentical(Node* root1, Node* root2){
     IsIdentical(root1->left, root2->left) && 
     IsIdentical(root1->right, root2->right);
 }
+Node* InvertTree(Node* root){
+
+    if(root==NULL) return NULL;
+
+    swap(root->left, root->right);
+    InvertTree(root->left);
+    InvertTree(root->right);
+
+    return root;
+    /*
+    1
+   2   3
+ 4
+
+     1
+   3   2
+         4
+
+ */
+}
 int main() {
 
-    Node* root1 = new Node(1);
-    root1->left = new Node(2);
-    //root1->right = new Node(3);
 
-    Node* root2 = new Node(1);
-    root2->left = new Node(2);
-    root2->right = new Node(3);
+   Node* root = new Node(4);
+    root->left = new Node(2);
+    root->right = new Node(7);
+    root->left->left = new Node(1);
+    root->left->right = new Node(3);
+    root->right->left = new Node(6);
+    root->right->right = new Node(9);
 
-    cout << (IsIdentical(root1, root2) ? "Identical" : "Not Identical") << endl;
+   InvertTree(root);
+   Inorder(root);
+
+
 
     
     
