@@ -137,9 +137,33 @@ int SubstringWithAllThreeCharac(string& str){
     }
     return ans;
 }
+string ReverseWordsInString(string& str){
+    // The pen is here --> here is pen The
+    int n=str.length();
+    reverse(str.begin(), str.end());
+    
+    string ans="";
+    for(int i=0; i<n; i++){
+        string word="";
+        while(i<n && str[i]!=' '){
+            word+=str[i];
+            i++;
+        }
+        reverse(word.begin(), word.end());
+
+        if (!word.empty()) {  
+            if (ans.empty()) {
+                ans += word;
+            } else {
+                ans += " " + word;
+            }
+        }
+    }
+    return ans;
+}
 int main() {
-    string str1="abcabc";
-    int ans=SubstringWithAllThreeCharac(str1);
+    string str1="The pen is here";
+    string ans=ReverseWordsInString(str1);
     cout<<ans;
     
     return 0;
