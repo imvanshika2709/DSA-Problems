@@ -618,14 +618,27 @@ void sort012(vector<int>& arr){
 
     }
 }
+void MatrixRotation(vector<vector<int>>& mat, int n){
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<n; j++){
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+    for(int i=0; i<n; i++){
+        reverse(mat[i].begin(), mat[i].end());
+    }
+}
 // quick sort
 int main() {
-    vector<vector<int>> temp={{1,2},{2,4},{5,10},{8,18}};
-    vector<vector<int>> ans=MergeIntervals_optimal(temp);
-
-    for(auto it: ans){
+    vector<vector<int>> mat1={{1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}};
+    int k=4;
+    MatrixRotation(mat1,k);
+    for(auto it: mat1){
         for(auto ele: it){
-            cout<<ele;
+            cout<<ele<<" ";
         }
         cout<<endl;
     }
