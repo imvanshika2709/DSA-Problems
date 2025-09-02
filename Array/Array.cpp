@@ -628,6 +628,19 @@ void MatrixRotation(vector<vector<int>>& mat, int n){
         reverse(mat[i].begin(), mat[i].end());
     }
 }
+// for rectangular matrix
+vector<vector<int> > rotateMatrix_rectangular(vector<vector<int> > &matrix){
+	int m=matrix.size();
+	int n=matrix[0].size();
+	vector<vector<int>> res(n, vector<int> (m));
+	for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            res[j][m-i-1]=matrix[i][j];
+        }
+    }
+	return res;
+    
+}
 // quick sort
 int main() {
     vector<vector<int>> mat1={{1, 2, 3, 4},
