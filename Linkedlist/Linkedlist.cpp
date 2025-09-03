@@ -147,6 +147,27 @@ Node* Yintersection(Node* head1, Node* head2){
     }
     return d1;
 }
+Node* getStartingNodeOfLoop(Node* list){
+	
+	Node* slow=list;
+	Node* fast=list;
+	
+	while(fast!=NULL && fast->next!=NULL){
+		slow=slow->next;
+		fast=fast->next->next;
+		
+		if(slow==fast){
+			slow=list;
+			while(slow!=fast){
+				slow=slow->next;
+				fast=fast->next;
+			}
+			return slow;
+		}
+	}
+	// add your logic here
+	return NULL;
+}
 
 int main() {
     Node* head1=new Node(1);
