@@ -589,7 +589,7 @@ int MaximumProductSubarray(vector<int>& arr){
         suff*=arr[n-i-1];
 
         if(pre==0) pre=1;
-        if(suff==1) suff=1;
+        if(suff==0) suff=1;
 
         maxi=max(maxi, max(pre, suff));
     }
