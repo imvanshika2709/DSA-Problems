@@ -161,6 +161,31 @@ string ReverseWordsInString(string& str){
     }
     return ans;
 }
+
+// Balanced parantheses
+
+bool isBalancedParentheses(string str) {
+	stack<char>st;
+	
+	for(auto it: str){
+		if(it=='(' || it=='{' || it=='[')	{
+			st.push(it);
+		}
+		else{
+			if(st.empty()) return false;
+			char ch=st.top();
+			st.pop();
+			
+			if((ch=='{' && it=='}') || (ch=='(' && it==')') || (ch=='[' && it==']')) continue;
+			
+			else{
+				return false;
+			}
+		}
+	}
+	return st.empty();
+
+}
 int main() {
     string str1="The pen is here";
     string ans=ReverseWordsInString(str1);
