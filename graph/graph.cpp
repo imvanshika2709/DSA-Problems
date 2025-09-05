@@ -69,6 +69,9 @@ int getNumberOfIslands(vector<vector<int>> &surface) {
 	return count;
 	
 }
+// Bellman ford--> negative cycle detect
+// Flyod- warshall multi-source shortest path algorithm
+// kruskal --> MST
 
 int main() {
     
