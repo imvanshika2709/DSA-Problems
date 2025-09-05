@@ -641,6 +641,16 @@ vector<vector<int> > rotateMatrix_rectangular(vector<vector<int> > &matrix){
 	return res;
     
 }
+int RepeatingAndMissing(vector<int>& arr){
+    int repeating=-1;
+    int missing=-1;
+    //3,1,2,5,3 14 15
+    int n=arr.size();
+    for(int i=0; i<n; i++){
+
+    }
+}
+// Repeating and missing
 // quick sort
 // sliding win max
 int main() {
