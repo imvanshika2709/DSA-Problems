@@ -186,10 +186,25 @@ bool isBalancedParentheses(string str) {
 	return st.empty();
 
 }
+// print all subsequences
+void printsub( int i,string &str, string& ans ){
+    if(i==str.length()){
+        cout<<ans<<endl;
+        return;
+    }
+    //pick
+    ans+=str[i];
+    printsub(i+1,str,ans);
+    ans.pop_back();
+
+    printsub(i+1, str, ans);
+}
 int main() {
-    string str1="The pen is here";
-    string ans=ReverseWordsInString(str1);
-    cout<<ans;
+    string str1="abc";
+    string ans1="";
+    cout<<endl;
+    printsub(0,str1, ans1);
+    cout<<ans1;
     
     return 0;
 }
