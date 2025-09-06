@@ -711,12 +711,35 @@ int KthSmallestElement(vector<int>& arr, int k){
     return pq.top();
 
 }
+int MinimumInRotated(vector<int>& arr){
+    int low=0;
+    int n=arr.size();
+    int high=n-1;
+    int ans=INT_MAX;
+
+    while(low<=high){
+        int mid=(low+high)/2;
+
+        if(arr[low]<arr[high]){
+            ans=min(ans, arr[low]);
+            break;
+        }
+        if(arr[low]<arr[mid]){
+            ans=min(ans, arr[low]);
+            low=mid+1;
+        }
+        else{
+            ans=min(ans, arr[mid]);
+            high=mid-1;
+        }
+    }
+    return ans;
+}
 // Repeating and missing
 // quick sort
 // sliding win max
 int main() {
-    vector<int> arr1={0,6,3,4,2,1}; //0,1,2,3,4,6
-    int k=6;
-    int ans=KthSmallestElement(arr1, k);
+    vector<int> arr1={2,3,1}; //0,1,2,3,4,6
+    int ans=MinimumInRotated(arr1);
     cout<<ans;
 }
