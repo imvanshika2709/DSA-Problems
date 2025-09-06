@@ -168,6 +168,25 @@ Node* getStartingNodeOfLoop(Node* list){
 
 	return NULL;
 }
+Node* DeleteNthFromLast(Node* head, int N){
+    Node* fast=head;
+    Node* slow=head;
+
+    for(int i=0; i<N; i++){
+        fast=fast->next;
+    }
+    if(fast==NULL) return head->next;
+
+    while(fast->next!=NULL){
+        fast=fast->next;
+        slow=slow->next;
+    }
+    Node* delnode=slow->next;
+    slow->next=slow->next->next;
+    delete delnode;
+
+    return head;
+}
 class LRUCache {
 public:
 	class node {
@@ -243,6 +262,12 @@ public:
         m[key] = head->next;
     }
 };
+void printLL(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+}
 
 /**
  * Your LRUCache object will be instantiated and called as such:
@@ -252,21 +277,18 @@ public:
  */
 
 int main() {
-    Node* head1=new Node(1);
-    Node* first= new Node(2);
-    Node* second= new Node(3);
-    Node* third= new Node(4);
-    Node* fourth= new Node(5);
+    Node* head1= new Node(1);
+    Node* p2= new Node(2);
+    Node* p3= new Node(3);
+    Node* p4=new Node(4);
 
+    head1->next=p2;
+    p2->next=p3;
+    p3->next=p4;
+    int N=4;
+    head1=DeleteNthFromLast(head1, N);
+    printLL(head1);
 
-    head1->next=first;
-    first->next=second;
-    second->next=third;
-    third->next=fourth;
-    fourth->next=second;
-
-    int ans=FindLength(head1);
-    cout<<ans;
     
     return 0;
 }
