@@ -650,21 +650,39 @@ int RepeatingAndMissing(vector<int>& arr){
 
     }
 }
+int TrappingRainwater(vector<int>& arr){
+    int n=arr.size();
+
+    int l=0; int r=n-1;
+    int lmax=0; int rmax=0;
+    int res=0;
+    while(l<=r){
+        if(arr[l]<arr[r]){
+            if(arr[l]>lmax){
+                lmax=arr[l];
+            }
+            else{
+                res+=lmax-arr[l];
+            }
+        l++;
+        }
+        else{
+            if(arr[r]>rmax){
+                rmax=arr[r];
+            } 
+            else {
+                res+=rmax-arr[r];
+            }
+        r--;
+        }
+    }
+    return res;
+}
 // Repeating and missing
 // quick sort
 // sliding win max
 int main() {
-    vector<vector<int>> mat1={{1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16}};
-    int k=4;
-    MatrixRotation(mat1,k);
-    for(auto it: mat1){
-        for(auto ele: it){
-            cout<<ele<<" ";
-        }
-        cout<<endl;
-    }
-    return 0;
+    vector<int> arr1={0,1,0,2,1,0,1,3,2,1,2,1};
+    int ans=TrappingRainWater(arr1);
+    cout<<ans;
 }
