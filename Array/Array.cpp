@@ -678,11 +678,45 @@ int TrappingRainwater(vector<int>& arr){
     }
     return res;
 }
+int KthLargestElement(vector<int>& arr, int k){
+    priority_queue<int> pq;
+    int n=arr.size();
+
+
+    for(int i=0; i<n; i++){
+        pq.push(arr[i]);
+    }
+    int f=k-1;
+
+    while(f>0){
+        pq.pop();
+        f--;
+    }
+    return pq.top();
+}
+int KthSmallestElement(vector<int>& arr, int k){
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int n=arr.size();
+
+
+    for(int i=0; i<n; i++){
+        pq.push(arr[i]);
+    }
+    int f=k-1;
+
+    while(f>0){
+        pq.pop();
+        f--;
+    }
+    return pq.top();
+
+}
 // Repeating and missing
 // quick sort
 // sliding win max
 int main() {
-    vector<int> arr1={0,1,0,2,1,0,1,3,2,1,2,1};
-    int ans=TrappingRainWater(arr1);
+    vector<int> arr1={0,6,3,4,2,1}; //0,1,2,3,4,6
+    int k=6;
+    int ans=KthSmallestElement(arr1, k);
     cout<<ans;
 }
