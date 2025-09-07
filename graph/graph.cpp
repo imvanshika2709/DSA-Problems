@@ -69,11 +69,53 @@ int getNumberOfIslands(vector<vector<int>> &surface) {
 	return count;
 	
 }
+void dfsutil(int node, vector<int> adj[], int vis[], vector<int>& ls){
+	vis[node]=1;
+	ls.push_back(node);
+
+	for(auto it: adj[node])
+	{
+		if(!vis[it]){
+			dfsutil(it,adj,vis, ls);
+		}
+	}
+}
+vector<int> dfs(int V, vector<int> adj[]){
+
+	int vis[V]={0};
+	vector<int> ls;
+	
+	int start=0;
+
+	dfsutil(start, adj, vis, ls);
+	return ls;	
+}
+void addEdge(vector <int> adj[], int u, int v) {
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
 // Bellman ford--> negative cycle detect
 // Flyod- warshall multi-source shortest path algorithm
 // kruskal --> MST
 
-int main() {
+void printAns(vector <int> &ans) {
+    for (int i = 0; i < ans.size(); i++) {
+        cout << ans[i] << " ";
+    }
+}
+
+int main() 
+{
+    vector <int> adj[5];
     
+    addEdge(adj, 0, 2);
+    addEdge(adj, 2, 4);
+    addEdge(adj, 0, 1);
+    addEdge(adj, 0, 3);
+
+    
+    vector <int> ans = dfs(5, adj);
+    printAns(ans);
+
     return 0;
 }
