@@ -133,26 +133,52 @@ int PrimsAlgoMST(int V, vector<vector<int>> adj[]){
 	return sum;
 
 }
+bool DetectCycleinDirected(int V,vector<int> adj[]){
+	queue<int> q;
+	vector<int> indegree(V, 0);
+	vector<int> topo;
 
+	for(int i=0; i<V; i++){
+		for(auto it: adj[i]){
+			indegree[it]++;
+		}
+
+	}
+
+	for(int i=0; i<V; i++){
+		if(indegree[i]==0){
+			q.push(i);
+		}
+	}
+
+	while(!q.empty()){
+		int node=q.front();
+		q.pop();
+
+		topo.push_back(node);
+		for(auto it: adj[node]){
+			indegree[it]--;
+			if(indegree[it]==0){
+				q.push(it);
+			}
+		}
+	}
+	if(topo.size()!=V) return true;
+	return false;
+}
 
 int main() 
 {
-    int V = 5;
-	vector<vector<int>> edges = {{0, 1, 2}, {0, 2, 1}, {1, 2, 1}, {2, 3, 2}, {3, 4, 1}, {4, 2, 2}};
-	vector<vector<int>> adj[V];
-	for (auto it : edges) {
-		vector<int> tmp(2);
-		tmp[0] = it[1];
-		tmp[1] = it[2];
-		adj[it[0]].push_back(tmp);
-
-		tmp[0] = it[0];
-		tmp[1] = it[2];
-		adj[it[1]].push_back(tmp);
-	}
-
-	int sum=PrimsAlgoMST(V,adj);
-	cout<<sum;
+	int V=6;
+    vector<int> adj[6];
+	adj[5].push_back(2);
+	adj[5].push_back(0);
+	adj[4].push_back(0);
+	adj[4].push_back(1);
+	adj[3].push_back(1);
+	adj[2].push_back(3);
+	bool ans= DetectCycleinDirected(V, adj);
+	cout<<ans;
 
     return 0;
 }
