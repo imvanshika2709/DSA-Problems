@@ -104,6 +104,8 @@ void printAns(vector <int> &ans) {
     }
 }
 
+
+
 int main() 
 {
     vector <int> adj[5];

@@ -735,11 +735,50 @@ int MinimumInRotated(vector<int>& arr){
     }
     return ans;
 }
+void PrintAllPermutations_util(vector<int>& ds,vector<int>& arr, vector<vector<int>>& ans, int freq[]){
+	int n=arr.size();
+
+	if(ds.size()==arr.size()){
+		ans.push_back(ds);
+		return;
+	}
+
+	for(int i=0; i<n; i++){
+		if(!freq[i]){
+            ds.push_back(arr[i]);
+			freq[i]=1;
+			PrintAllPermutations_util(ds,arr, ans, freq);
+			freq[i]=0;
+			ds.pop_back();
+		}
+
+	}
+	
+}
+vector<vector<int>> PrintAllPermutations(vector<int>& arr){
+	vector<int> ds;
+	int freq[arr.size()];
+	vector<vector<int>> ans;
+    for(int i=0; i<arr.size(); i++){
+        freq[i]=0;
+    }
+
+	PrintAllPermutations_util(ds,arr,ans,freq);
+
+	return ans;
+}
 // Repeating and missing
 // quick sort
 // sliding win max
 int main() {
-    vector<int> arr1={2,3,1}; //0,1,2,3,4,6
-    int ans=MinimumInRotated(arr1);
-    cout<<ans;
+    vector<int> arr1={1,2,3};
+    vector<vector<int>> ans=PrintAllPermutations(arr1);
+    
+    for(auto it: ans){
+        for(auto ele: it){
+            cout<<ele;
+        }
+        cout<<endl;
+    }
+    return 0;
 }
