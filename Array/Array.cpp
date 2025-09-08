@@ -494,20 +494,15 @@ int SubarraysWithSumK_optimal(vector<int>& arr, int k){
 // kadane's algo
 
 int MaximumSubarray(vector<int>& arr){
-    int sum=0;
-    int n=arr.size();
-    int maxi=0;
-
-    for(int i=0; i<n; i++){
-        sum+=arr[i];
-
-        if(sum<0) sum=0;
-
-        else maxi=max(sum,maxi);
-
-        // [-2,1,-3,4,-1,2,1,-5,4]
+    int n = arr.size();
+    int maxsum = arr[0];
+    int sum = arr[0];
+    
+    for(int i = 1; i < n; i++) {
+        sum = max(arr[i], sum + arr[i]);  // either extend or start new subarray
+        maxsum = max(maxsum, sum);
     }
-    return maxi;
+    return maxsum;
 }
 vector<int> MaximumSubarray_array(vector<int>& arr){
     int sum=0;
