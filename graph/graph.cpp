@@ -104,20 +104,55 @@ void printAns(vector <int> &ans) {
     }
 }
 
+int PrimsAlgoMST(int V, vector<vector<int>> adj[]){
+	priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+	int Vis[V]={0};
+	pq.push({0,0});
+	int sum=0;
+
+	while(!pq.empty()){
+		auto it=pq.top();
+		int node=it.second;
+		int wt=it.first;
+
+		pq.pop();
+
+		if(Vis[node]==1) continue;
+		Vis[node]=1;
+
+		sum+=wt;
+
+		for(auto it: adj[node]){
+			int adjnode=it[0];
+			int edwt=it[1];
+
+			pq.push({edwt, adjnode});
+
+		}
+	}
+	return sum;
+
+}
 
 
 int main() 
 {
-    vector <int> adj[5];
-    
-    addEdge(adj, 0, 2);
-    addEdge(adj, 2, 4);
-    addEdge(adj, 0, 1);
-    addEdge(adj, 0, 3);
+    int V = 5;
+	vector<vector<int>> edges = {{0, 1, 2}, {0, 2, 1}, {1, 2, 1}, {2, 3, 2}, {3, 4, 1}, {4, 2, 2}};
+	vector<vector<int>> adj[V];
+	for (auto it : edges) {
+		vector<int> tmp(2);
+		tmp[0] = it[1];
+		tmp[1] = it[2];
+		adj[it[0]].push_back(tmp);
 
-    
-    vector <int> ans = dfs(5, adj);
-    printAns(ans);
+		tmp[0] = it[0];
+		tmp[1] = it[2];
+		adj[it[1]].push_back(tmp);
+	}
+
+	int sum=PrimsAlgoMST(V,adj);
+	cout<<sum;
 
     return 0;
 }
