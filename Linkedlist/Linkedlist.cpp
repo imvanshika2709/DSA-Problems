@@ -111,6 +111,16 @@ Node* MiddleOfLL(Node* head){
     }
     return slow;
 }
+Node* MiddleOfLL_variation(Node* head){
+    Node* slow=head;
+    Node* fast=head;
+
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+}
 int LengthOfLoop(Node* slow, Node* fast){
     int count=1;
     fast=fast->next;
