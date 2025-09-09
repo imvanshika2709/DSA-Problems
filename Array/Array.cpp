@@ -762,6 +762,26 @@ vector<vector<int>> PrintAllPermutations(vector<int>& arr){
 
 	return ans;
 }
+vector<int> findRepeatAndMissingNumber_better(vector<int> &nums) {
+	unordered_map<int,int> mpp;
+	int repeating=0; int missing=0;
+	int n=nums.size();
+	
+	for(int i=0; i<n; i++){
+		mpp[nums[i]]++;
+	}
+	
+	for (int i = 1; i <= n; i++) {
+        if (mpp[i] == 2) {   // repeating
+            repeating=i;
+        }
+        else if (mpp[i] == 0) { // missing
+            missing=i;
+        }
+    }
+	return {repeating, missing};
+    
+}
 // Repeating and missing
 // quick sort
 // sliding win max
