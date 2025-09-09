@@ -96,6 +96,26 @@ vector<vector<int>> LevelOrder(Node* root){
     // traversal of the tree
     return ans;
 }
+int PathSum(Node* root, int& maxsum) {
+    if (root == NULL) return 0;
+
+    // if path goes negative, ignore it (take 0 instead)
+    int leftsum = max(0, PathSum(root->left, maxsum));
+    int rightsum = max(0, PathSum(root->right, maxsum));
+
+    // best path including both children
+    maxsum = max(maxsum, leftsum + rightsum + root->val);
+
+    // return best downward path (only one side allowed)
+    return max(leftsum, rightsum) + root->val;
+}
+
+int maxPathSum(Node* root) {
+    int maxi = INT_MIN;
+    PathSum(root, maxi);
+    return maxi;
+}
+
 Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
 	if(root==NULL || root==p || root==q) return root;
 	
@@ -111,16 +131,14 @@ Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
 int main() {
 
 
-   Node* root = new Node(4);
-    root->left = new Node(2);
-    root->right = new Node(7);
-    root->left->left = new Node(1);
-    root->left->right = new Node(3);
-    root->right->left = new Node(6);
-    root->right->right = new Node(9);
+   Node* root = new Node(-10);
+    root->left = new Node(9);
+    root->right = new Node(20);
+    root->right->left=new Node(15);
+    root->right->right->right=new Node(7);
 
-   InvertTree(root);
-   Inorder(root);
+   int ans=maxPathSum(root);
+   cout<<ans;
 
 
 
