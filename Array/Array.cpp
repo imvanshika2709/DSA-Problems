@@ -636,7 +636,7 @@ vector<vector<int> > rotateMatrix_rectangular(vector<vector<int> > &matrix){
 	return res;
     
 }
-int RepeatingAndMissing(vector<int>& arr){
+/*int RepeatingAndMissing(vector<int>& arr){
     int repeating=-1;
     int missing=-1;
     //3,1,2,5,3 14 15
@@ -644,7 +644,7 @@ int RepeatingAndMissing(vector<int>& arr){
     for(int i=0; i<n; i++){
 
     }
-}
+}*/
 int TrappingRainwater(vector<int>& arr){
     int n=arr.size();
 
@@ -762,6 +762,20 @@ vector<vector<int>> PrintAllPermutations(vector<int>& arr){
 
 	return ans;
 }
+int MissingNumber(vector<int>& arr){
+    int res=0;  // 1,2,4,5
+    int n=arr.size();
+    int N=n+1;
+    int sum=0;
+    int SUM=(N*(N+1))/2;
+
+    for(int i=0; i<n; i++){
+        sum+=arr[i];
+    }
+    res=SUM-sum;
+
+    return res;
+}
 vector<int> findRepeatAndMissingNumber_better(vector<int> &nums) {
 	unordered_map<int,int> mpp;
 	int repeating=0; int missing=0;
@@ -784,15 +798,9 @@ vector<int> findRepeatAndMissingNumber_better(vector<int> &nums) {
 }
 
 int main() {
-    vector<int> arr1={1,2,3};
-    vector<vector<int>> ans=PrintAllPermutations(arr1);
-    
-    for(auto it: ans){
-        for(auto ele: it){
-            cout<<ele;
-        }
-        cout<<endl;
-    }
+    vector<int> arr1={1,2,5,3,4};
+    int ans=MissingNumber(arr1);
+    cout<<ans;
     return 0;
 }
 // Repeating and missing
