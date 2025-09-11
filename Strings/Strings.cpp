@@ -199,12 +199,21 @@ void printsub( int i,string &str, string& ans ){
 
     printsub(i+1, str, ans);
 }
+
+string LongestCommonPrefix(vector<string>& str){
+    sort(str.begin(), str.end());
+    string first=str[0]; string last=str.back();
+
+    int i=0;
+    while (i < first.size() && i < last.size() && first[i] == last[i]) {
+        i++;
+    }
+    return first.substr(0, i);
+
+}
 int main() {
-    string str1="abc";
-    string ans1="";
-    cout<<endl;
-    printsub(0,str1, ans1);
-    cout<<ans1;
-    
-    return 0;
+    vector<string> str1={"flower", "flow", "floghts", "f"};
+    string ans=LongestCommonPrefix(str1);
+    cout<<ans;
+
 }
