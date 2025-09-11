@@ -216,4 +216,8 @@ int main() {
     string ans=LongestCommonPrefix(str1);
     cout<<ans;
 
+
+
+    return 0;
+
 }
