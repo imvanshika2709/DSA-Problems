@@ -186,7 +186,9 @@ int main() {
     root->right->left = new Node(11);
     root->right->right = new Node(14);
 
-    
+    int k=3;
+    int  ans=KthLargest(root, k);
+    cout<<ans;
 
 
 
