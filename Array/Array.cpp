@@ -796,12 +796,30 @@ vector<int> findRepeatAndMissingNumber_better(vector<int> &nums) {
 	return {repeating, missing};
     
 }
+vector<int> ProductofArrayExceptSelf(vector<int>& arr){
+    // no zeros in array
+    // O(2n)
+    int n=arr.size();
+    int pro=1;
 
+    for(int i=0; i<n; i++){
+        pro*=arr[i];
+    }
+    vector<int> ans;
+    for(int i=0; i<n; i++){
+        ans.push_back(pro/arr[i]);
+
+    }
+    return ans;
+}
 
 int main() {
-    vector<int> arr1={1,2,5,3,4};
-    int ans=MissingNumber(arr1);
-    cout<<ans;
+    vector<int> arr1={1,2,3,4,5};
+    vector<int> ans=ProductofArrayExceptSelf(arr1);
+
+    for(auto it: ans){
+        cout<<it<<" ";
+    }
     return 0;
 }
 // Repeating and missing
