@@ -150,10 +150,10 @@ int KthSmallest(Node* root, int k){
     return ksmallest;
 
 }
-void KthLargest_util(Node* root, int& counter, int k, int& klargest){
+void KthLargestBST_util(Node* root, int& counter, int k, int& klargest){
     if(root== NULL || counter>=k) return ;
 
-    KthLargest_util(root->right, counter, k, klargest);
+    KthLargestBST_util(root->right, counter, k, klargest);
 
     counter++;
     if(counter==k){
@@ -161,14 +161,14 @@ void KthLargest_util(Node* root, int& counter, int k, int& klargest){
         return;
     }
 
-    KthLargest_util(root->left, counter, k, klargest);
+    KthLargestBST_util(root->left, counter, k, klargest);
 
 }
-int KthLargest(Node* root, int k){
+int KthLargestBST(Node* root, int k){
     int counter=0;
     int klargest=INT_MAX;
 
-    KthLargest_util(root, counter, k, klargest);
+    KthLargestBST_util(root, counter, k, klargest);
     return klargest;
 
 }
@@ -211,7 +211,7 @@ int main() {
     root->right->right = new Node(14);
 
     int k=3;
-    int  ans=KthLargest(root, k);
+    int  ans=KthLargestBST(root, k);
     cout<<ans;
 
 
