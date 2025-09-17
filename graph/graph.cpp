@@ -198,18 +198,17 @@ bool CourseSchedule_util(vector<vector<int>>& adj) {
 }
 
 bool CourseSchedule(int n, vector<vector<int>> &prerequisites) {
-    // add your logic here
 	vector<vector<int>> adj(n);
     
-    // build graph: b → a
     for (auto& pre : prerequisites) {
         int a = pre[0], b = pre[1];
         adj[b].push_back(a);
     }
 
-    // if graph has cycle → cannot finish all courses
     return !CourseSchedule_util(adj);
 }
+// 1-2-3-4
+// 1-2-3-4-5-6-7
 
 int main() 
 {
