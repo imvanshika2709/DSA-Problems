@@ -17,9 +17,17 @@ void Inorder(Node* root){
     if(root==NULL) return;
 
     Inorder(root->left);
-    cout<<root->val<<endl;
+    cout<<root->val<<" ";
     Inorder(root->right);
 
+} 
+void Postorder(Node* root){
+    if(root==NULL) return;
+
+    Postorder(root->left);
+    Postorder(root->right);
+    cout<<root->val<<" ";
+    
 } 
 
 bool IsIdentical(Node* root1, Node* root2){
@@ -198,9 +206,7 @@ int main() {
     root->right->left = new Node(11);
     root->right->right = new Node(14);
 
-    int k=3;
-    int  ans=KthLargestBST(root, k);
-    cout<<ans;
+    Postorder(root);
 
 
 

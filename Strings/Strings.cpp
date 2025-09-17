@@ -225,7 +225,7 @@ string LongestCommonPrefix(vector<string>& str){
     return first.substr(0, i);
 
 }
-bool CheckForAnagram
+
 int main() {
     vector<string> str1={"flower", "flow", "floghts", "f"};
     string ans=LongestCommonPrefix(str1);
