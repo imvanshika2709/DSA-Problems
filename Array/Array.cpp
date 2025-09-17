@@ -812,13 +812,35 @@ vector<int> ProductofArrayExceptSelf(vector<int>& arr){
     }
     return ans;
 }
+void SubsetSumHelper(int ind,vector<int>& arr, int n,vector<int>& ds, int sum ){
+    if(ind==n){
+        ds.push_back(sum);
+        return;
+    }
+
+    SubsetSumHelper(ind+1, arr,n, ds, sum+arr[ind]);
+    SubsetSumHelper(ind+1, arr,n, ds, sum);
+
+}
+
+vector<int> SubsetSum(vector<int>& arr, int n){
+    vector<int> ds;
+    int sum=0;
+    SubsetSumHelper(0,arr,n,ds, sum);
+    sort(ds.begin(), ds.end());
+
+    return ds;
+
+}
+
 
 int main() {
-    vector<int> arr1={1,2,3,4,5};
-    vector<int> ans=ProductofArrayExceptSelf(arr1);
+    vector<int> arr={5,2,1};
+    int n=3;
+    vector<int>ans1=SubsetSum(arr, n);
 
-    for(auto it: ans){
-        cout<<it<<" ";
+    for(auto it: ans1){
+        cout<<it;
     }
     return 0;
 }
