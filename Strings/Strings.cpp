@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool anagram(string &str1, string &str2){
+bool isanagram_brute(string &str1, string &str2){
     unordered_map<int,int> mpp;
 
     if(str1.length()!= str2.length()) return false;
@@ -18,6 +18,20 @@ bool anagram(string &str1, string &str2){
     }
     return true;
 }
+bool isAnagram(string s1, string s2) {
+    if (s1.size() != s2.size()) return false;
+
+    int count[26] = {0};
+
+    for (char c : s1) count[c - 'a']++;
+    for (char c : s2) count[c - 'a']--;
+
+    for (int i = 0; i < 26; i++) {
+        if (count[i] != 0) return false;
+    }
+    return true;
+}
+
 int LongestSubstringwithoutRepeating_brute(string &str){
     // “c a d b z a b c d”
     int n=str.length();
@@ -211,6 +225,7 @@ string LongestCommonPrefix(vector<string>& str){
     return first.substr(0, i);
 
 }
+bool CheckForAnagram
 int main() {
     vector<string> str1={"flower", "flow", "floghts", "f"};
     string ans=LongestCommonPrefix(str1);
