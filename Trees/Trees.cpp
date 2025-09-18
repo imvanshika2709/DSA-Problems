@@ -29,6 +29,17 @@ void Postorder(Node* root){
     cout<<root->val<<" ";
     
 } 
+int HeightofBT(Node* root){
+        
+        if(root == NULL){
+            return 0;
+        }
+           
+        int lh = HeightofBT(root->left);
+        int rh = HeightofBT(root->right);
+        
+        return 1 + max(lh, rh);
+    }
 
 bool IsIdentical(Node* root1, Node* root2){
     if(root1==NULL && root2==NULL) return true;
