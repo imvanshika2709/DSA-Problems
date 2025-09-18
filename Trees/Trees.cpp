@@ -29,6 +29,7 @@ void Postorder(Node* root){
     cout<<root->val<<" ";
     
 } 
+// Height of Binary Tree
 int HeightofBT(Node* root){
         
         if(root == NULL){
