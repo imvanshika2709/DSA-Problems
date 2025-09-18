@@ -207,20 +207,56 @@ bool CourseSchedule(int n, vector<vector<int>> &prerequisites) {
 
     return !CourseSchedule_util(adj);
 }
+bool BipartiteGraph_util(int start, vector<int> adj[], int color[]){
+	
+	queue<int> q;
+	q.push(start);
+
+	while(!q.empty()){
+		int node=q.front();
+		q.pop();
+
+		for(auto it: adj[node]){
+			if(color[it]==-1){
+				color[it]=!color[node];
+				q.push(it);
+			}
+
+			else if(color[it]==color[node]) return false;
+
+		}
+	}
+	return true;
+}
+
+bool BipartiteGraph(int V,vector<int> adj[]){
+	int color[V];
+	for(int i=0; i<V; i++){
+		color[i]=-1;
+	}
+
+	for(int i=0; i<V; i++){
+		if(color[i]==-1){
+			if(BipartiteGraph_util(i,adj, color)==false){
+				return false;
+			}
+		}
+	}
+	return true;
+}
 // 1-2-3-4
 // 1-2-3-4-5-6-7
 
 int main() 
 {
-	int V=6;
-    vector<int> adj[6];
-	adj[5].push_back(2);
-	adj[5].push_back(0);
-	adj[4].push_back(0);
-	adj[4].push_back(1);
-	adj[3].push_back(1);
-	adj[2].push_back(3);
-	bool ans= DetectCycleinDirected(V, adj);
+	vector<int>adj[5];
+	
+	addEdge(adj, 0, 1);
+   	addEdge(adj, 1, 2);
+    addEdge(adj, 2, 3);
+    addEdge(adj, 3, 4);
+
+	bool ans = BipartiteGraph(5, adj); 
 	cout<<ans;
 
     return 0;
