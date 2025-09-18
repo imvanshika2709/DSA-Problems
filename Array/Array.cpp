@@ -832,16 +832,39 @@ vector<int> SubsetSum(vector<int>& arr, int n){
     return ds;
 
 }
+int CountPlatforms(int n,int arr[], int dep[]){
+    sort(arr, arr+n);
+    sort(dep, dep+n);
+
+    int count=1;
+
+    int maxi=1;
+    int i=1; int j=0;
+    
+    while(i<n && j<n){
+        if(arr[i]<=dep[j]){
+            count++;
+            i++;
+        }
+        else{
+            count--;
+            j++;
+        }
+        maxi=max(maxi, count);
+    }
+    return maxi;
+
+}
 
 
 int main() {
-    vector<int> arr={5,2,1};
-    int n=3;
-    vector<int>ans1=SubsetSum(arr, n);
+    int n = 6;
+    int arr[] = {900, 940, 950, 1100, 1500, 1800};
+    int dep[] = {910, 1200, 1120, 1130, 1900, 2000};
 
-    for(auto it: ans1){
-        cout<<it;
-    }
+    int ans=CountPlatforms(n,arr, dep);
+    cout<<ans;
+    
     return 0;
 }
 // Repeating and missing
