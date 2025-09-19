@@ -133,6 +133,53 @@ int PrimsAlgoMST(int V, vector<vector<int>> adj[]){
 	return sum;
 
 }
+void dfs2(int node,vector<int> adj[], vector<int>& vis, stack<int>& st) {
+	vis[node]=1;
+	for(auto it: adj[node]){
+		if(!vis[it]){
+			dfs2(it, adj, vis, st);
+		}
+	}
+	st.push(node);
+}
+void dfs3(int node,vector<int> adjT[], vector<int> &vis) {
+	vis[node]=1;
+	for(auto it: adjT[node]){
+		if(!vis[it]){
+			dfs3(it, adjT, vis);
+		}
+	}
+}
+int kosaraju(int V, vector<int> adj[])
+    {
+        vector<int> vis(V, 0);
+        stack<int> st;
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfs2(i, adj, vis, st);
+            }
+        }
+
+        vector<int> adjT[V];
+        for (int i = 0; i < V; i++) {
+            vis[i] = 0;
+            for (auto it : adj[i]) {
+                // i -> it
+                // it -> i
+                adjT[it].push_back(i);
+            }
+        }
+        int scc = 0;
+        while (!st.empty()) {
+            int node = st.top();
+            st.pop();
+            if (!vis[node]) {
+                scc++;
+                dfs3(node, adjT, vis);
+            }
+        }
+        return scc;
+    }
 bool DetectCycleinDirected(int V,vector<int> adj[]){
 	queue<int> q;
 	vector<int> indegree(V, 0);
@@ -249,14 +296,17 @@ bool BipartiteGraph(int V,vector<int> adj[]){
 
 int main() 
 {
-	vector<int>adj[5];
-	
-	addEdge(adj, 0, 1);
-   	addEdge(adj, 1, 2);
-    addEdge(adj, 2, 3);
-    addEdge(adj, 3, 4);
-
-	bool ans = BipartiteGraph(5, adj); 
+	int n = 5;
+    int edges[5][2] = {
+        {1, 0}, {0, 2},
+        {2, 1}, {0, 3},
+        {3, 4}
+    };
+    vector<int> adj[n];
+    for (int i = 0; i < n; i++) {
+        adj[edges[i][0]].push_back(edges[i][1]);
+    }
+	int ans=kosaraju(5,adj);
 	cout<<ans;
 
     return 0;

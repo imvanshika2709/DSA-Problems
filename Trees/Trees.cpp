@@ -107,14 +107,12 @@ vector<vector<int>> LevelOrder(Node* root){
 int PathSum(Node* root, int& maxsum) {
     if (root == NULL) return 0;
 
-    // if path goes negative, ignore it (take 0 instead)
     int leftsum = max(0, PathSum(root->left, maxsum));
     int rightsum = max(0, PathSum(root->right, maxsum));
 
-    // best path including both children
+    
     maxsum = max(maxsum, leftsum + rightsum + root->val);
 
-    // return best downward path (only one side allowed)
     return max(leftsum, rightsum) + root->val;
 }
 
